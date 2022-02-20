@@ -11,44 +11,34 @@ class InvalidInputException extends Throwable{
 
 public class App{
     public static void main(String[] args) throws InvalidInputException {
-        System.out.println("Enter your bank: SBI/PNB/BOB");
         Scanner sc = new Scanner(System.in);
-        String bankName = sc.nextLine();
+        System.out.println("Enter the principle amount:");
+        int p = sc.nextInt();
+        System.out.println("Enter time in years:");
+        int t = sc.nextInt();
+        System.out.println("Enter your bank: SBI/PNB/BOB");
+        String bankName = sc.next();
         System.out.println("Are you a new customer? y/n");
         char ch = sc.next().charAt(0);
         try{
         switch (bankName){
             case "SBI":
-                if(ch=='y'){
-                    Bank c = new SBI("New User");
-                    System.out.println("Entrer the principle amount:");
-                    int p = sc.nextInt();
-                    System.out.println("Entrer time in years:");
-                    int t = sc.nextInt();
-                    c.getInterest(t,p);
-                }else{
-                    SBI c = new SBI();
-                }
-                
+                SBI user1 = new SBI(ch);
+                user1.getInterest(t, p);
+                user1.getCustomers();
                 break;
             case "PNB":
-                if(ch=='y'){
-                    SBI c = new SBI("Anushka");
-                }else{
-                    SBI c = new SBI();
-                }
+                PNB user2 = new PNB(ch);
+                user2.getInterest(t, p);
                 break;
             case "BOB":
-                if(ch=='y'){
-                    SBI c = new SBI("Anushka");
-                }else{
-                    SBI c = new SBI();
-                }
+                BOB user3 = new BOB(ch);
+                user3.getInterest(t, p);
                 break;
             default: 
                 sc.close();
                 throw new InvalidInputException("Invalid bank name.");
-        }
+        } 
         sc.close();
     }
     catch(InvalidInputException e){
